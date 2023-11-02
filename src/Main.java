@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class Main {
     //private static Set<String> monitoredFolderInDirectories = new HashSet<>();
@@ -519,7 +518,7 @@ public class Main {
             loadMonitoredDirectories();
         }
 
-    } // facut la facultate, de verificat acasa
+    } // TERMINAT
 
     private static void removeMonitoredDirectory(Scanner scanner) {
         if (monitoredDirectories.isEmpty()) {
@@ -649,17 +648,17 @@ public class Main {
 
 
     private static void renameFile(Scanner scanner) {
-        System.out.println("Introduceți DIRECTORUL în care se află fișierul de redenumit:");
+        System.out.println("Introduceti DIRECTORUL in care se afla fisierul de redenumit:");
         char firstLetter = scanner.next().charAt(0);
         scanner.nextLine();
 
-        System.out.println("Introduceți numele folderului în care se află fișierul:");
+        System.out.println("Introduceti numele FOLDERULUI in care se afla fisierul:");
         String parentFolder = scanner.nextLine();
 
-        System.out.println("Introduceți numele fișierului de redenumit (cu extensia .mp3, .jpg sau .png):");
+        System.out.println("Introduceti numele FISIERULUI de redenumit:");
         String oldFileName = scanner.nextLine();
 
-        System.out.println("Introduceți noul nume al fișierului (cu extensia .mp3, .jpg sau .png):");
+        System.out.println("Introduceti NOUL nume al fișierului:");
         String newFileName = scanner.nextLine();
 
         List<String> updatedLines = new ArrayList<>();
@@ -675,7 +674,8 @@ public class Main {
                     currentDirectory = line;
                     updatedLines.add(line);
                 } else if (currentDirectory != null) {
-                    if (line.endsWith(oldFileName) && (oldFileName.endsWith(".mp3") || oldFileName.endsWith(".jpg") || oldFileName.endsWith(".png"))) {
+                    if (line.contains(oldFileName) && (line.endsWith(".mp3") || line.endsWith(".wav") || line.endsWith(".jpg") || line.endsWith(".png"))) {
+
                         String updatedLine = line.replace(oldFileName, newFileName);
                         updatedLines.add(updatedLine);
                         fileFound = true;
@@ -688,7 +688,7 @@ public class Main {
             }
             reader.close();
 
-            // Salvăm înapoi în fișier
+            // Salvez înapoi în fișier
             BufferedWriter writer = new BufferedWriter(new FileWriter(configFilePath));
             for (String updatedLine : updatedLines) {
                 writer.write(updatedLine);
@@ -704,7 +704,7 @@ public class Main {
         } catch (IOException e) {
             System.out.println("Eroare la citirea sau scrierea în fișier.");
         }
-    } // functioneaza cum trebuie dar trebuie sa ma mai uit cum fac cu terminatiile .mp3 etc
+    } // TERMINAT
 
 
 
