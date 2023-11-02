@@ -357,8 +357,6 @@ public class Main {
                         nextDirectory = monitoredDirectories.get(i + 1);
                     }
 
-                    System.out.println(hasChildFolder);
-
 
                     if (!hasChildFolder && (nextDirectory == null || (Character.isUpperCase(nextDirectory.charAt(0)) && nextDirectory.charAt(1) == ':'))) {
                         System.out.println("Doriti sa adaugati un nou folder in folderul parinte \"" + parentName + "\"? (Da/Nu)");
@@ -528,7 +526,7 @@ public class Main {
             char firstLetter = scanner.next().charAt(0);
             scanner.nextLine(); // Consum newline lăsat în urmă
 
-            List<String> linesToRemove = new ArrayList<>();
+            Set<String> linesToRemove = new HashSet<>(); // performanta mai buna
 
             // Caut liniile care trebuie eliminate (directoarele și fișierele asociate)
             boolean shouldRemove = false;
@@ -579,6 +577,183 @@ public class Main {
     } // TERMINAT
 
     private static void removeFolder(Scanner scanner) {
+
+        if (monitoredDirectories.isEmpty()) {
+            System.out.println("Nu exista directoare.");
+        } else {
+
+            System.out.println("Introduceti DIRECTORUL in care exista folderul de sters:");
+            char firstLetter = scanner.next().charAt(0);
+            scanner.nextLine();
+
+            String directoryToAppend = firstLetter + ":\\";
+
+            System.out.println("Introduceti FOLDERUL de sters:");
+            String folderName = scanner.nextLine();
+
+            for (int i = 0; i < monitoredDirectories.size(); i++) {
+                String directory = monitoredDirectories.get(i);
+
+                if (directory.startsWith(directoryToAppend) && directory.contains(folderName)) {
+
+                    String nextDirectory = null;
+                    if (i < monitoredDirectories.size() - 1) {
+                        nextDirectory = monitoredDirectories.get(i + 1);
+                    }
+
+                    if (directory.endsWith(folderName + "\\")) {
+
+                        if (nextDirectory == null || (Character.isUpperCase(nextDirectory.charAt(0)) && nextDirectory.charAt(1) == ':')) {
+                            System.out.println("Sigur stergeti folderul \"" + folderName + "\"? (Da/Nu)");
+                            String response = scanner.nextLine();
+
+                            if (response.equalsIgnoreCase("da")) {
+                                // Obține indexul la care se termină folderul
+                                int endIndex = directory.indexOf(folderName);
+
+                                // Extrag calea până la folder
+                                String pathBeforeFolder = directory.substring(0, endIndex);
+
+                                // Verific dacă secvența de director mai există în listă
+                                int sequenceExists = 0;
+                                for (int j = 0; j < monitoredDirectories.size(); j++) {
+                                    String directory2 = monitoredDirectories.get(j);
+                                    if (directory2.startsWith(pathBeforeFolder)) {
+                                        sequenceExists++;
+                                    }
+                                }
+
+                                // Verific daca exista doar aparitia initiala sau mai sunt si alte aparitii ale partitiei
+                                if (sequenceExists == 1) {
+                                    String updatedDirectory = directory.replace(folderName + "\\", "");
+                                    monitoredDirectories.set(i, updatedDirectory);
+                                } else {
+                                    monitoredDirectories.remove(i);
+                                }
+
+                                saveMonitoredDirectories();
+                                System.out.println("Folderul a fost șters.\n");
+
+                            } else if (response.equalsIgnoreCase("nu")) {
+                                System.out.println("Stergerea folderului a fost anulata!\n");
+                            } else {
+                                System.out.println("Raspuns invalid. \n");
+                            }
+
+
+
+
+
+
+
+
+
+                        } else {
+                            System.out.println("Sigur stergeti folderul \"" + folderName + "\"? (Da/Nu)");
+                            String response = scanner.nextLine();
+
+                            if (response.equalsIgnoreCase("da")) {
+
+                                for (int j = i + 1; j <= monitoredDirectories.size(); j++) {
+                                    String currentLine = monitoredDirectories.get(j);
+
+                                    if (currentLine.matches("[A-Z]:.*")) {
+                                        // Am găsit o nouă linie care începe cu o literă mare și caracterul ":"
+                                        break;
+                                    } else {
+                                        monitoredDirectories.remove(j);
+                                        j--;
+                                    }
+                                }
+
+                                int endIndex = directory.indexOf(folderName);
+
+                                // Extrag calea până la folder
+                                String pathBeforeFolder = directory.substring(0, endIndex);
+
+                                // Verific dacă secvența de director mai există în listă
+                                int sequenceExists = 0;
+                                boolean hasChildFolder = false;
+                                for (int j = 0; j < monitoredDirectories.size(); j++) {
+                                    String directory2 = monitoredDirectories.get(j);
+                                    if (directory2.startsWith(pathBeforeFolder)) {
+                                        sequenceExists++;
+                                        if(directory2.startsWith(pathBeforeFolder) && !(directory2.endsWith(folderName))) {
+                                            hasChildFolder = true;
+                                        }
+                                    }
+                                }
+
+                                // Verific daca exista doar aparitia initiala sau mai sunt si alte aparitii ale partitiei
+                                if (sequenceExists == 1) {
+                                    String updatedDirectory = directory.replace(folderName + "\\", "");
+                                    monitoredDirectories.set(i, updatedDirectory);
+                                } else if (sequenceExists >= 2) {
+                                    if(hasChildFolder == true) {
+                                        String updatedDirectory = directory.replace(folderName + "\\", "");
+                                        monitoredDirectories.set(i, updatedDirectory);
+
+                                        for (int j = i + 1; j <= monitoredDirectories.size(); j++) {
+                                            String currentLine = monitoredDirectories.get(j);
+
+                                            if (currentLine.contains(pathBeforeFolder)) {
+                                                monitoredDirectories.remove(j);
+
+                                            }
+                                        }
+                                    }
+                                }
+
+                                saveMonitoredDirectories();
+                                System.out.println("Folderul a fost sters.\n");
+
+                            } else if (response.equalsIgnoreCase("nu")) {
+                                System.out.println("Stergerea folderului a fost anulata!\n");
+                            } else {
+                                System.out.println("Raspuns invalid. \n");
+                            }
+
+                        }
+
+
+
+
+
+
+
+
+                    } else {
+
+                        if (nextDirectory == null || (Character.isUpperCase(nextDirectory.charAt(0)) && nextDirectory.charAt(1) == ':')) {
+                            System.out.println("Sigur stergeti folderul \"" + folderName + "\"? (Da/Nu)");
+                            String response = scanner.nextLine();
+
+                            if (response.equalsIgnoreCase("da")) {
+                                // Obține indexul la care se termină folderul
+                                int endIndex = directory.indexOf(folderName);
+                                // Extrage calea până la folder
+                                String updatedDirectory = directory.substring(0, endIndex);
+
+                                monitoredDirectories.set(i, updatedDirectory);
+
+                                saveMonitoredDirectories();
+                                System.out.println("Folderul a fost sters.\n");
+                            } else if (response.equalsIgnoreCase("nu")) {
+                                System.out.println("Stergerea folderului a fost anulata!\n");
+                            } else {
+                                System.out.println("Raspuns invalid. \n");
+                            }
+
+                        }
+
+                    }
+                }
+
+            }
+        }
+
+        System.out.println("Directoarele existente: ");
+        loadMonitoredDirectories();
 
     } // nefacut
 
@@ -646,7 +821,6 @@ public class Main {
     } // TERMINAT - contine exemplu exceptie
 
 
-
     private static void renameFile(Scanner scanner) {
         System.out.println("Introduceti DIRECTORUL in care se afla fisierul de redenumit:");
         char firstLetter = scanner.next().charAt(0);
@@ -705,8 +879,6 @@ public class Main {
             System.out.println("Eroare la citirea sau scrierea în fișier.");
         }
     } // TERMINAT
-
-
 
 
 }
