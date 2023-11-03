@@ -1,11 +1,34 @@
 import java.io.*;
 import java.util.*;
 
+/**
+ * Clasa principală care conține metoda principală (main) și funcționalitatea centrală a aplicației.
+ * Această clasă gestionează interacțiunea cu utilizatorul și oferă meniuri pentru adăugarea, ștergerea și redenumirea directoriilor, folderelor și fișierelor.
+ */
 public class Main {
+    /**
+     * Lista de directoare monitorizate care stochează căile către directoarele, folderele și fișierele monitorizate.
+     */
     private static final List<String> monitoredDirectories = new ArrayList<>();
+
+    /**
+     * Calea către fișierul de configurare în care sunt stocate directoarele și fișierele monitorizate.
+     */
     static final String configFilePath = "C:/Users/Roxy Enescu/IdeaProjects/Tema4_EnescuRoxana/src/directors.txt";
+
+    /**
+     * Obiectul care gestionează operațiile legate de directoare (adică adăugare și ștergere de directoare).
+     */
     private static MonitoredDirectory monitoredDirectory;
+
+    /**
+     * Obiectul care gestionează operațiile legate de foldere (adică adăugare, ștergere și redenumire de foldere).
+     */
     private static Folder folder;
+
+    /**
+     * Obiectul care gestionează operațiile legate de fișiere (adică adăugare, ștergere și redenumire de fișiere).
+     */
     private static File file;
 
     public static void main(String[] args) throws FileException {
@@ -48,6 +71,11 @@ public class Main {
         }
     }
 
+    /**
+     * Afișează meniul pentru adăugarea de elemente (director, folder sau fișier) și gestionează selecțiile utilizatorului în cadrul acestui meniu.
+     * @param scanner Scanner utilizat pentru citirea input-ului utilizatorului.
+     * @throws FileException Aruncă o excepție în cazul unor erori legate de fișiere.
+     */
     private static void handleAdaugareMenu(Scanner scanner) throws FileException {
         int option;
 
@@ -82,6 +110,10 @@ public class Main {
         }
     }
 
+    /**
+     * Afișează meniul secundar pentru adăugarea de foldere în directoare existente sau foldere existente și gestionează selecțiile utilizatorului în acest meniu.
+     * @param scanner Scanner utilizat pentru citirea input-ului utilizatorului.
+     */
     private static void addFolder(Scanner scanner) {
         int option;
 
@@ -113,6 +145,11 @@ public class Main {
 
     }
 
+    /**
+     * Afișează meniul pentru ștergerea de elemente (director, folder sau fișier) și gestionează selecțiile utilizatorului în cadrul acestui meniu.
+     * @param scanner Scanner utilizat pentru citirea input-ului utilizatorului.
+     * @throws FileException Aruncă o excepție în cazul unor erori legate de fișiere.
+     */
     private static void handleStergereMenu(Scanner scanner) throws FileException {
         int option;
 
@@ -147,6 +184,11 @@ public class Main {
         }
     }
 
+    /**
+     * Afișează meniul pentru redenumirea de elemente (folder sau fișier) și gestionează selecțiile utilizatorului în cadrul acestui meniu.
+     * @param scanner Scanner utilizat pentru citirea input-ului utilizatorului.
+     * @throws FileException Aruncă o excepție în cazul unor erori legate de fișiere.
+     */
     private static void handleRedenumireMenu(Scanner scanner) throws FileException {
         int option;
 
@@ -177,7 +219,10 @@ public class Main {
         }
     }
 
-
+    /**
+     * Încarcă lista de directoare monitorizate din fișierul de configurare și actualizează lista internă.
+     * Această metodă este utilizată pentru a citi configurațiile stocate anterior și a le afișa utilizatorului.
+     */
     static void loadMonitoredDirectories() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(configFilePath));
@@ -194,6 +239,10 @@ public class Main {
         }
     }
 
+    /**
+     * Salvează lista de directoare monitorizate în fișierul de configurare.
+     * Această metodă este utilizată pentru a actualiza configurațiile cu modificările aduse de utilizator.
+     */
     static void saveMonitoredDirectories() {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(configFilePath));

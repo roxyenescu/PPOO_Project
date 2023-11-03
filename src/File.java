@@ -3,6 +3,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Clasa File este responsabilă pentru gestionarea operațiilor pe fișiere în directoarele monitorizate.
+ * Aceasta oferă funcționalități pentru adăugarea, ștergerea și redenumirea fișierelor.
+ */
 public class File implements FileOperation {
     private List<String> monitoredDirectories;
 
@@ -10,6 +14,13 @@ public class File implements FileOperation {
         this.monitoredDirectories = monitoredDirectories;
     }
 
+    /**
+     * Metoda adauga un fisier intr-un folder existent.
+     * Utilizatorul este ghidat pentru a selecta directorul, folderul parinte și extensia corectă a fișierului.
+     * Extensii posibile pentru fisiere: mp3, wav, jpg, png
+     * @param scanner Scannerul utilizat pentru interacțiunea cu utilizatorul.
+     * @throws FileException Excepție aruncată în cazul unor erori legate de fișier sau operație invalidă.
+     */
     @Override
     public void addFileToFolder(Scanner scanner) throws FileException {
         if (monitoredDirectories.isEmpty()) {
@@ -120,6 +131,12 @@ public class File implements FileOperation {
         }
     }
 
+    /**
+     * Metoda sterge un fisier existent dintr-un folder.
+     * Utilizatorul este ghidat pentru a selecta directorul, folderul parinte și fișierul corect de șters.
+     * @param scanner Scannerul utilizat pentru interacțiunea cu utilizatorul.
+     * @throws FileException Excepție aruncată în cazul unor erori legate de fișier sau operație invalidă.
+     */
     @Override
     public void removeFile(Scanner scanner) throws FileException {
         if (monitoredDirectories.isEmpty()) {
@@ -186,6 +203,12 @@ public class File implements FileOperation {
         Main.loadMonitoredDirectories();
     }
 
+    /**
+     * Metoda redenumeste un fisier existent dintr-un folder.
+     * Utilizatorul este ghidat pentru a selecta directorul, folderul parinte, fișierul de redenumit și noul nume.
+     * @param scanner Scannerul utilizat pentru interacțiunea cu utilizatorul.
+     * @throws FileException Excepție aruncată în cazul unor erori legate de fișier sau operație invalidă.
+     */
     @Override
     public void renameFile(Scanner scanner) throws FileException {
         System.out.println("Introduceti DIRECTORUL in care se afla fisierul de redenumit:");
@@ -248,5 +271,5 @@ public class File implements FileOperation {
 
         System.out.println("Directoarele existente: ");
         Main.loadMonitoredDirectories();
-    }
+    } // am folosit lista
 }

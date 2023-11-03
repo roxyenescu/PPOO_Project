@@ -3,6 +3,10 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
+/**
+ * Clasa MonitoredDirectory oferă funcționalități pentru gestionarea directoarelor monitorizate, si anume adăugarea și ștergerea acestora.
+ * Aceasta interacționează cu lista de directoare monitorizate pentru a realiza operațiile dorite.
+ */
 public class MonitoredDirectory implements DirectoryOperation {
     private List<String> monitoredDirectories;
 
@@ -10,6 +14,11 @@ public class MonitoredDirectory implements DirectoryOperation {
         this.monitoredDirectories = monitoredDirectories;
     }
 
+    /**
+     * Metoda adaugă un director monitorizat la lista de directoare monitorizate.
+     * Utilizatorul este ghidat pentru a introduce litera directorului de adăugat.
+     * @param scanner Scannerul utilizat pentru interacțiunea cu utilizatorul.
+     */
     @Override
     public void addMonitoredDirectory(Scanner scanner) {
         System.out.println("Introduceti litera directorului de adaugat:");
@@ -35,6 +44,11 @@ public class MonitoredDirectory implements DirectoryOperation {
         Main.loadMonitoredDirectories();
     }
 
+    /**
+     * Metoda sterge un director monitorizat din lista de directoare monitorizate.
+     * Utilizatorul este ghidat pentru a introduce litera directorului de adăugat.
+     * @param scanner Scannerul utilizat pentru interacțiunea cu utilizatorul.
+     */
     @Override
     public void removeMonitoredDirectory(Scanner scanner) {
         if (monitoredDirectories.isEmpty()) {

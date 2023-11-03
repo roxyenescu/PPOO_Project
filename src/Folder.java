@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
+/**
+ * Clasa Folder este responsabilă pentru gestionarea operațiilor cu foldere în cadrul directoarelor monitorizate.
+ * Aceasta oferă funcționalități pentru adăugarea, ștergerea și redenumirea folderelor.
+ */
 public class Folder implements FolderOperation {
     private List<String> monitoredDirectories;
 
@@ -11,6 +15,11 @@ public class Folder implements FolderOperation {
         this.monitoredDirectories = monitoredDirectories;
     }
 
+    /**
+     * Metoda adauga un folder intr-un director deja existent.
+     * Utilizatorul este ghidat pentru a selecta directorul și numele noului folder.
+     * @param scanner Scannerul utilizat pentru interacțiunea cu utilizatorul.
+     */
     @Override
     public void addFolderToDirectory(Scanner scanner) {
         if (monitoredDirectories.isEmpty()) {
@@ -72,6 +81,11 @@ public class Folder implements FolderOperation {
         }
     }
 
+    /**
+     * Metoda adauga un folder intr-un alt folder deja existent.
+     * Utilizatorul este ghidat pentru a selecta directorul, folderul parinte și numele noului folder.
+     * @param scanner Scannerul utilizat pentru interacțiunea cu utilizatorul.
+     */
     @Override
     public void addFolderToFolder(Scanner scanner) {
         if (monitoredDirectories.isEmpty()) {
@@ -157,6 +171,11 @@ public class Folder implements FolderOperation {
         Main.loadMonitoredDirectories();
     }
 
+    /**
+     * Metoda sterge un folder dintr-un director.
+     * Utilizatorul este ghidat pentru a selecta directorul si folderul de sters.
+     * @param scanner Scannerul utilizat pentru interacțiunea cu utilizatorul.
+     */
     @Override
     public void removeFolder(Scanner scanner) {
         if (monitoredDirectories.isEmpty()) {
@@ -267,8 +286,13 @@ public class Folder implements FolderOperation {
 
         System.out.println("Directoarele existente: ");
         Main.loadMonitoredDirectories();
-    }
+    } // am folosit colectia SET pentru performanta mai buna si pentru faptul ca partitiile nu trebuie sa fie la fel ca altfel e clar o problema
 
+    /**
+     * Metoda redenumeste un folder dintr-un director.
+     * Utilizatorul este ghidat pentru a selecta directorul, numele folderului de redenumit, precum și noul nume al acestuia.
+     * @param scanner Scannerul utilizat pentru interacțiunea cu utilizatorul.
+     */
     @Override
     public void renameFolder(Scanner scanner) {
         System.out.println("Introduceti litera directorului in care se afla folderul de redenumit:");
