@@ -7,10 +7,9 @@ E:\Roxana\Imagini\Vacanta\
 E:\Roxana\Imagini\
 image1.jpg
 image2.jpg
-image3.jpg
 image4.png
 M:\Amintiri\
-poza.jpg
+photo.jpg
 M:\Amintiri\Franta\Paris\
 M:\Amintiri\Franta\Marsilia\
 M:\Amintiri\Germania\

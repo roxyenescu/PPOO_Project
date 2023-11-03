@@ -2,7 +2,6 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    //private static Set<String> monitoredFolderInDirectories = new HashSet<>();
     private static final List<String> monitoredDirectories = new ArrayList<>();
     private static final String configFilePath = "C:/Users/Roxy Enescu/IdeaProjects/Tema4_EnescuRoxana/src/directors.txt";
 
@@ -707,7 +706,7 @@ public class Main {
             for (int i = 0; i < monitoredDirectories.size(); i++) {
                 String directory = monitoredDirectories.get(i);
 
-                if (directory.startsWith(directoryToAppend) && directory.endsWith(parentFolder)) {
+                if (directory.startsWith(directoryToAppend) && directory.endsWith(parentFolder + "\\")) {
                     System.out.println("Sigur stergeti folderul \"" + fileName + "\"? (Da/Nu)");
                     String response = scanner.nextLine();
 
@@ -721,17 +720,13 @@ public class Main {
                             for (int j = i + 1; j < monitoredDirectories.size(); j++) {
                                 String currentLine = monitoredDirectories.get(j);
 
-                                if (currentLine.matches("[A-Z]:.*")) {
-                                    // Am găsit o nouă linie care începe cu o literă mare și caracterul ":" sau una care face parte din folderul curent
-                                    break;
-                                } else {
-                                    if(currentLine.contains(fileName)) {
-                                        monitoredDirectories.remove(currentLine);
-                                    }
-                                    j++;
+                                if (currentLine.contains(fileName)) {
+                                    monitoredDirectories.remove(currentLine);
                                 }
                             }
                         }
+                        saveMonitoredDirectories();
+                        System.out.println("Fisierul a fost sters cu succes!\n");
 
 
                         } else if (response.equalsIgnoreCase("nu")) {
@@ -750,8 +745,7 @@ public class Main {
 
         System.out.println("Directoarele existente: ");
         loadMonitoredDirectories();
-    } // nefacut
-
+    } // TERMINAT
 
     private static void renameFolder(Scanner scanner) { // folosesc un vector
         System.out.println("Introduceti litera directorului in care se afla folderul de redenumit:");
