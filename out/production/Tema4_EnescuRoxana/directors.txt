@@ -3,13 +3,9 @@ C:\User\Documente\ExamenMaster\
 D:\Proiecte\
 MyProject1.mp3
 MyProject2.mp3
-E:\Enescu\
 E:\Roxana\Imagini\
 image2.jpg
 image3.jpg
-image4.png
-M:\Amintiri\Franta\Paris\
-M:\Amintiri\Franta\Marsilia\
-M:\Amintiri\Germania\
+image100.png
+M:\Memories\Germania\
 poza.jpg
-F:\Aplicatii\

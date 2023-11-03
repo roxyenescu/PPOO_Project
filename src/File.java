@@ -14,6 +14,7 @@ public class File implements FileOperation {
         this.monitoredDirectories = monitoredDirectories;
     }
 
+
     /**
      * Metoda adauga un fisier intr-un folder existent.
      * Utilizatorul este ghidat pentru a selecta directorul, folderul parinte și extensia corectă a fișierului.
@@ -71,6 +72,7 @@ public class File implements FileOperation {
 
                             Main.saveMonitoredDirectories();
                             System.out.println("Fisierul \"" + fileName + "\" a fost creat cu succes.\n");
+                            Main.nrOperations++;
 
                         } else if (response.equalsIgnoreCase("nu")) {
                             System.out.println("Adaugarea fisierului a fost anulata!\n");
@@ -109,6 +111,7 @@ public class File implements FileOperation {
                                 Main.saveMonitoredDirectories();
 
                                 System.out.println("Fisierul \"" + fileName + "\" a fost creat cu succes.\n");
+                                Main.nrOperations++;
                             } else {
                                 System.out.println("Folderul \"" + parentName + "\" nu a fost gasit.\n");
                             }
@@ -130,6 +133,7 @@ public class File implements FileOperation {
             Main.loadMonitoredDirectories();
         }
     }
+
 
     /**
      * Metoda sterge un fisier existent dintr-un folder.
@@ -182,6 +186,7 @@ public class File implements FileOperation {
                         }
                         Main.saveMonitoredDirectories();
                         System.out.println("Fisierul a fost sters cu succes!\n");
+                        Main.nrOperations++;
 
 
                     } else if (response.equalsIgnoreCase("nu")) {
@@ -202,6 +207,7 @@ public class File implements FileOperation {
         System.out.println("Directoarele existente: ");
         Main.loadMonitoredDirectories();
     }
+
 
     /**
      * Metoda redenumeste un fisier existent dintr-un folder.
@@ -261,6 +267,7 @@ public class File implements FileOperation {
 
             if (fileFound) {
                 System.out.println("Fisierul a fost redenumit cu succes!");
+                Main.nrOperations++;
             } else {
                 throw new FileException("Fisierul nu a fost gasit sau nu indeplineste conditiile specificate.");
             }

@@ -6,6 +6,8 @@ import java.util.*;
  * Această clasă gestionează interacțiunea cu utilizatorul și oferă meniuri pentru adăugarea, ștergerea și redenumirea directoriilor, folderelor și fișierelor.
  */
 public class Main {
+    static int nrOperations = 0; // daca il fac static este vazut doar in portiunea lui (static il face oarecum variabila globala)
+
     /**
      * Lista de directoare monitorizate care stochează căile către directoarele, folderele și fișierele monitorizate.
      */
@@ -32,6 +34,8 @@ public class Main {
     private static File file;
 
     public static void main(String[] args) throws FileException {
+        //int nrOperations = 0;
+
         loadMonitoredDirectories();
         monitoredDirectory = new MonitoredDirectory(monitoredDirectories);
         folder = new Folder(monitoredDirectories);
@@ -61,6 +65,7 @@ public class Main {
                     handleRedenumireMenu(scanner);
                     break;
                 case 4:
+                    System.out.println("Statistica: Numar total de operatii realizate: " + nrOperations);
                     System.out.println("La revedere!");
                     System.exit(0);
                     break;
@@ -69,7 +74,10 @@ public class Main {
                     break;
             }
         }
+
     }
+
+
 
     /**
      * Afișează meniul pentru adăugarea de elemente (director, folder sau fișier) și gestionează selecțiile utilizatorului în cadrul acestui meniu.
@@ -110,6 +118,8 @@ public class Main {
         }
     }
 
+
+
     /**
      * Afișează meniul secundar pentru adăugarea de foldere în directoare existente sau foldere existente și gestionează selecțiile utilizatorului în acest meniu.
      * @param scanner Scanner utilizat pentru citirea input-ului utilizatorului.
@@ -144,6 +154,8 @@ public class Main {
         }
 
     }
+
+
 
     /**
      * Afișează meniul pentru ștergerea de elemente (director, folder sau fișier) și gestionează selecțiile utilizatorului în cadrul acestui meniu.
@@ -184,6 +196,8 @@ public class Main {
         }
     }
 
+
+
     /**
      * Afișează meniul pentru redenumirea de elemente (folder sau fișier) și gestionează selecțiile utilizatorului în cadrul acestui meniu.
      * @param scanner Scanner utilizat pentru citirea input-ului utilizatorului.
@@ -219,6 +233,8 @@ public class Main {
         }
     }
 
+
+
     /**
      * Încarcă lista de directoare monitorizate din fișierul de configurare și actualizează lista internă.
      * Această metodă este utilizată pentru a citi configurațiile stocate anterior și a le afișa utilizatorului.
@@ -238,6 +254,8 @@ public class Main {
             System.out.println("Eroare la citirea configuratiei. Fisierul nu exista sau nu poate fi citit.");
         }
     }
+
+
 
     /**
      * Salvează lista de directoare monitorizate în fișierul de configurare.

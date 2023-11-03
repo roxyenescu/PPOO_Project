@@ -38,11 +38,13 @@ public class MonitoredDirectory implements DirectoryOperation {
         monitoredDirectories.add(directory);
 
         System.out.println("Director adaugat cu succes.\n");
+        Main.nrOperations++;
         Main.saveMonitoredDirectories();
 
         System.out.println("Directoarele existente: ");
         Main.loadMonitoredDirectories();
     }
+
 
     /**
      * Metoda sterge un director monitorizat din lista de directoare monitorizate.
@@ -86,6 +88,7 @@ public class MonitoredDirectory implements DirectoryOperation {
                     monitoredDirectories.removeAll(linesToRemove);
 
                     System.out.println("Stergerea a fost realizata cu succes!\n");
+                    Main.nrOperations++;
 
                     Main.saveMonitoredDirectories(); // Salvez modificările în fișier
 

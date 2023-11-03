@@ -55,6 +55,7 @@ public class Folder implements FolderOperation {
                             monitoredDirectories.add(i, firstLetter + ":\\" + folderName + "\\");
                             Main.saveMonitoredDirectories();
                             System.out.println("Folder adaugat cu succes.\n");
+                            Main.nrOperations++;
                         } else {
                             System.out.println("Exista deja un folder cu aceeasi denumire!\n");
                         }
@@ -80,6 +81,7 @@ public class Folder implements FolderOperation {
             Main.loadMonitoredDirectories();
         }
     }
+
 
     /**
      * Metoda adauga un folder intr-un alt folder deja existent.
@@ -128,6 +130,8 @@ public class Folder implements FolderOperation {
                             monitoredDirectories.set(i, directory + folderName + "\\");
                             Main.saveMonitoredDirectories();
                             System.out.println("Folder adaugat cu succes in folderul parinte existent \"" + parentName + "\".\n");
+                            Main.nrOperations++;
+
                         } else if (response.equalsIgnoreCase("nu")) {
                             System.out.println("Adaugarea folderului a fost anulata!\n");
                         } else {
@@ -150,6 +154,8 @@ public class Folder implements FolderOperation {
                                 monitoredDirectories.add(i, newDirectory);
                                 Main.saveMonitoredDirectories();
                                 System.out.println("Folderul \"" + folderName + "\" a fost creat cu succes.\n");
+                                Main.nrOperations++;
+
                             } else {
                                 System.out.println("Folderul \"" + parentName + "\" nu a fost gasit.\n");
                             }
@@ -170,6 +176,7 @@ public class Folder implements FolderOperation {
         System.out.println("Directoarele existente: ");
         Main.loadMonitoredDirectories();
     }
+
 
     /**
      * Metoda sterge un folder dintr-un director.
@@ -270,6 +277,7 @@ public class Folder implements FolderOperation {
 
                         Main.saveMonitoredDirectories();
                         System.out.println("Folderul a fost sters.\n");
+                        Main.nrOperations++;
 
                     } else if (response.equalsIgnoreCase("nu")) {
                         System.out.println("Stergerea folderului a fost anulata!\n");
@@ -287,6 +295,7 @@ public class Folder implements FolderOperation {
         System.out.println("Directoarele existente: ");
         Main.loadMonitoredDirectories();
     } // am folosit colectia SET pentru performanta mai buna si pentru faptul ca partitiile nu trebuie sa fie la fel ca altfel e clar o problema
+
 
     /**
      * Metoda redenumeste un folder dintr-un director.
@@ -321,6 +330,7 @@ public class Folder implements FolderOperation {
                     line = line.replace("\\" + oldFolderName + "\\", "\\" + newFolderName + "\\");
 
                     folderFound = true;
+                    Main.nrOperations++;
                 }
                 lines[lineCount] = line;
                 lineCount++;
@@ -328,9 +338,8 @@ public class Folder implements FolderOperation {
 
             reader.close();
 
-            // throw Exceptie()
-        } catch (IOException e) { // catch(Exceptie e)
-            System.out.println("Eroare la citirea configuratiei."); // sysout e.mesaj
+        } catch (IOException e) {
+            System.out.println("Eroare la citirea configuratiei.");
         }
 
         if (!folderFound) {
@@ -344,6 +353,7 @@ public class Folder implements FolderOperation {
                 writer.newLine();
             }
             writer.close();
+
         } catch (IOException e) {
             System.out.println("Eroare la salvarea configuratiei.");
         }
