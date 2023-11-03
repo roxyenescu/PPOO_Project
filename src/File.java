@@ -11,7 +11,7 @@ public class File implements FileOperation {
     }
 
     @Override
-    public void addFileToFolder(Scanner scanner) {
+    public void addFileToFolder(Scanner scanner) throws FileException {
         if (monitoredDirectories.isEmpty()) {
             System.out.println("Nu exista directoare.");
         } else {
@@ -54,6 +54,8 @@ public class File implements FileOperation {
                                 String newFile = fileName + "." + extension;
 
                                 monitoredDirectories.add(i + 1, newFile);
+                            } else {
+                                throw new FileException("Extensia fisierului nu este valida.");
                             }
 
                             Main.saveMonitoredDirectories();
@@ -89,6 +91,8 @@ public class File implements FileOperation {
 
                                     String newFile = fileName + "." + extension;
                                     monitoredDirectories.add(i + 1, newFile);
+                                } else {
+                                    throw new FileException("Extensia fisierului nu este valida.");
                                 }
 
                                 Main.saveMonitoredDirectories();
@@ -117,7 +121,7 @@ public class File implements FileOperation {
     }
 
     @Override
-    public void removeFile(Scanner scanner) {
+    public void removeFile(Scanner scanner) throws FileException {
         if (monitoredDirectories.isEmpty()) {
             System.out.println("Nu exista directoare.");
 
@@ -133,6 +137,8 @@ public class File implements FileOperation {
 
             System.out.println("Introduceti FISIERUL de sters:");
             String fileName = scanner.nextLine();
+
+            boolean fileDeleted = false;
 
             for (int i = 0; i < monitoredDirectories.size(); i++) {
                 String directory = monitoredDirectories.get(i);
@@ -153,6 +159,7 @@ public class File implements FileOperation {
 
                                 if (currentLine.contains(fileName)) {
                                     monitoredDirectories.remove(currentLine);
+                                    fileDeleted = true;
                                 }
                             }
                         }
@@ -164,13 +171,14 @@ public class File implements FileOperation {
                         System.out.println("Stergerea fisierului a fost anulata!\n");
 
                     } else {
-                        System.out.println("Raspuns invalid. \n");
+                        throw new FileException("Raspuns invalid. Stergerea fisierului a fost anulata.");
                     }
-
 
                 }
             }
-
+            if (!fileDeleted) {
+                throw new FileException("Fisierul nu a fost gasit.");
+            }
 
         }
 
@@ -179,7 +187,7 @@ public class File implements FileOperation {
     }
 
     @Override
-    public void renameFile(Scanner scanner) {
+    public void renameFile(Scanner scanner) throws FileException {
         System.out.println("Introduceti DIRECTORUL in care se afla fisierul de redenumit:");
         char firstLetter = scanner.next().charAt(0);
         scanner.nextLine();
@@ -231,10 +239,11 @@ public class File implements FileOperation {
             if (fileFound) {
                 System.out.println("Fisierul a fost redenumit cu succes!");
             } else {
-                System.out.println("Fisierul nu a fost gasit sau nu indeplineste conditiile specificate.");
+                throw new FileException("Fisierul nu a fost gasit sau nu indeplineste conditiile specificate.");
             }
+
         } catch (IOException e) {
-            System.out.println("Eroare la citirea sau scrierea în fisier.");
+            throw new FileException("Eroare la citirea sau scrierea în fisier.");
         }
 
         System.out.println("Directoarele existente: ");

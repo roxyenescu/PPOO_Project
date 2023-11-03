@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public interface FileOperation {
 
-    void addFileToFolder(Scanner scanner);
-    void removeFile(Scanner scanner);
-    void renameFile(Scanner scanner);
+    void addFileToFolder(Scanner scanner) throws FileException;
+    void removeFile(Scanner scanner) throws FileException;
+    void renameFile(Scanner scanner) throws FileException;
 }

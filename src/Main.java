@@ -8,7 +8,7 @@ public class Main {
     private static Folder folder;
     private static File file;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileException {
         loadMonitoredDirectories();
         monitoredDirectory = new MonitoredDirectory(monitoredDirectories);
         folder = new Folder(monitoredDirectories);
@@ -48,7 +48,7 @@ public class Main {
         }
     }
 
-    private static void handleAdaugareMenu(Scanner scanner) {
+    private static void handleAdaugareMenu(Scanner scanner) throws FileException {
         int option;
 
         while (true) {
@@ -113,7 +113,7 @@ public class Main {
 
     }
 
-    private static void handleStergereMenu(Scanner scanner) {
+    private static void handleStergereMenu(Scanner scanner) throws FileException {
         int option;
 
         while (true) {
@@ -147,7 +147,7 @@ public class Main {
         }
     }
 
-    private static void handleRedenumireMenu(Scanner scanner) {
+    private static void handleRedenumireMenu(Scanner scanner) throws FileException {
         int option;
 
         while (true) {
